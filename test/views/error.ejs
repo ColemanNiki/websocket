@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>live cam 接收页面</title>
+    <script src="/socket.io/socket.io.js></script>
+
+<script type="text/javascript" charset="utf-8">
+    var socket = io();
+    console.log("fsdfsdf");
+    var image = document.getElementById('ii');
+    socket.on('image',function(msg){
+        image.src = msg.data;
+    });
+</script>
+</head>
+<body>
+<img id="ii" style="width:320px;height:240px"/>
+</body>
+</html>
