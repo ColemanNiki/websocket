@@ -7,13 +7,55 @@
 var app = require('../app');
 var debug = require('debug')('test:server');
 var http = require('http');
-var https = require('https');
+var WebSocket = require('ws');
 var fs = require('fs');
+var https = require('https');
 
 var options = {
   key:fs.readFileSync('center.key'),
   cert: fs.readFileSync('center.pem')
 }
+
+var STREAM_SECRET = 'secret',
+	STREAM_PORT = 8081,
+	WEBSOCKET_PORT = 8082,
+	RECORD_STREAM = false;
+
+var socketServer = new WebSocket.Server({port:WEBSOCKET_PORT,perMessageDeflate:false});
+socketServer.connectionCount = 0;
+socketServer.on('connection',function(socket){
+  socketServer.connectionCount++;
+  socket.on('close',function(code,message){
+    socketServer.connectionCount--;
+    console.log("number: "+socketServer.connectionCount);
+  });
+});
+
+socketServer.broadcast = function(data){
+  socketServer.clients.forEach(function each(client){
+    if(client.readyState == WebSocket.OPEN){
+      client.send(data);
+    }
+  });
+};
+
+var streamServer = https.createServer(function(request,response){
+  var params = request.url.substr(1).split('/');
+
+	if (params[0] !== STREAM_SECRET) {
+		console.log(
+			'Failed Stream Connection: '+ request.socket.remoteAddress + ':' +
+			request.socket.remotePort + ' - wrong secret.'
+		);
+		response.end();
+	}
+
+  response.connection.setTimeout(0);
+  request.on('data',function(data){
+    socketServer.broadcast(data);
+  });
+}).listen(STREAM_PORT);
+
 /**
  * Get port from environment and store in Express.
  */
@@ -25,14 +67,6 @@ app.set('port', port);
  * Create HTTP server.
  */
 var server = https.createServer(options,app);
-var io = require('socket.io').listen(server);
-
-io.on('connection', function(socket){
-  socket.on('image',function(msg){
-    console.log('sfsdf');
-    io.emit('image',msg);
-  });
-});
 /**
  * Listen on provided port, on all network interfaces.
  */
