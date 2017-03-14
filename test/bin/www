@@ -22,7 +22,7 @@ var STREAM_SECRET = 'secret',
 	RECORD_STREAM = false;
 
 
-var streamServer = https.createServer(function(request,response){
+var streamServer = https.createServer(options,function(request,response){
   var params = request.url.substr(1).split('/');
 
 	if (params[0] !== STREAM_SECRET) {
