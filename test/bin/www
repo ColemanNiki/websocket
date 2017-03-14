@@ -32,7 +32,7 @@ var streamServer = https.createServer(options,function(request,response){
 		);
 		response.end();
 	}
-
+  console.log("streamServer come");
   response.connection.setTimeout(0);
   request.on('data',function(data){
     socketServer.broadcast(data);
