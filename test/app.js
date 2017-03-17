@@ -16,6 +16,10 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+app.user(session({
+  secret:"sdfasdfiasdhf",
+  cookie:{maxAge:60*1000*30}
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', index);
 app.use('/users', users);

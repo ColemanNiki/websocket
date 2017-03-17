@@ -4,7 +4,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  if(req.session.user && req.session.user.sign){
+    res.render('home',{title:req.session.user});
+  }else{
+    res.render('index', { title: 'Express' });
+  }
 });
 
 router.get('/show', function(req, res, next) {
@@ -32,6 +36,11 @@ router.get('/login',function(req,res,next){
     }
     else{
       if(upwd == doc.pwd){
+        req.session.user = {
+          name = uname,
+          id = doc._id,
+          sing = true
+        };
         res.send(200);
       }
       else{
