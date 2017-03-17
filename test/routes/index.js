@@ -19,7 +19,7 @@ router.get('/register',function(req,res,next){
 }).post('/register',function(req,res){
   console.log("start post");
   var User = global.dbHandel.getModel('user');
-  var uname = req.body.name;
+  var uname = req.body.uname;
   var upwd = req.body.upwd;
   console.log(uname+" "+upwd);
   User.findOne({name:uname},function(err,doc){
