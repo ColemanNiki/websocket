@@ -21,11 +21,13 @@ router.get('/login',function(req,res,next){
   var User = global.dbHandel.getModel('users');
   var uname = req.body.uname;
   var upwd = req.body.upwd;
+  console.log(uname+" "+upwd);
   User.findOne({name:uname},function(err,doc){
     if(err){
       res.send(500);
       console.log(err);
     }else if(!doc){
+      console.log("1");
       res.send(404);
     }
     else{
@@ -33,6 +35,7 @@ router.get('/login',function(req,res,next){
         res.send(200);
       }
       else{
+        console.log(doc.pwd);
         res.send(404);
       }
     }
