@@ -16,7 +16,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-app.user(session({
+app.use(session({
   secret:"sdfasdfiasdhf",
   cookie:{maxAge:60*1000*30}
 }));
