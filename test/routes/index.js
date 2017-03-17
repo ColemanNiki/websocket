@@ -37,9 +37,9 @@ router.get('/login',function(req,res,next){
     else{
       if(upwd == doc.pwd){
         req.session.user = new Object({
-          name = uname,
-          id = doc._id,
-          sing = true
+          name : uname,
+          id : doc._id,
+          sing : true
         });
         res.send(200);
       }
