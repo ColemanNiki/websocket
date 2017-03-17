@@ -30,17 +30,30 @@ router.get('/register',function(req,res,next){
       res.send(500);
       console.log("存在用户");
     }else{
-      User.create({
+      // User.create({
+      //   name:uname,
+      //   pwd:upwd
+      // },function(err,doc){
+      //   if(err){
+      //     res.send(500);
+      //     console.log("添加错误");
+      //   }else{
+      //     res.send(200);
+      //   }
+      // });
+      var nUser = new User({
         name:uname,
         pwd:upwd
-      },function(err,doc){
+      });
+      nUser.save(function(err){
         if(err){
           res.send(500);
           console.log("添加错误");
         }else{
+          console.log("添加成功");
           res.send(200);
         }
-      });
+      })
     }
   })
 });
