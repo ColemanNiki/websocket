@@ -4,8 +4,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log(req.session.user);
   if(req.session.user && req.session.user.sign){
-    res.render('home',{title:req.session.user});
+    res.render('home',{title:'Express'});
   }else{
     res.render('index', { title: 'Express' });
   }
@@ -39,8 +40,9 @@ router.get('/login',function(req,res,next){
         req.session.user = new Object({
           name : uname,
           id : doc._id,
-          sing : true
+          sign : true
         });
+        console.log(req.session.user);
         res.send(200);
       }
       else{
@@ -84,5 +86,10 @@ router.get('/register',function(req,res,next){
 
 router.get('/home',function(req,res,next){
   res.render('home',{title:'Web Live'});
+});
+
+router.get('/outlogin',function(req,res,next){
+  req.session.user = null;
+  res.render('index',{title:'index'});
 });
 module.exports = router;

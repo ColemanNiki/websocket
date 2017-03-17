@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var Schema = mongoose.Schema;
+var ejs = require('ejs');
 
 global.dbHandel = require('./database/dbHandel');
 global.db = mongoose.connect("mongodb://localhost:27017/test");
@@ -22,6 +22,10 @@ app.use(session({
 }));
 
 // view engine setup
+app.set('view options',{
+  "open":"{{",
+  "close":"}}"
+});
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
