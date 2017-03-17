@@ -21,6 +21,7 @@ router.get('/register',function(req,res,next){
   var User = global.dbHandel.getModel('user');
   var uname = req.body.name;
   var upwd = req.body.upwd;
+  console.log(uname+" "+upwd);
   User.findOne({name:uname},function(err,doc){
     if(err){
       res.send(500);
