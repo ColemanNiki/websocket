@@ -18,7 +18,7 @@ router.get('/register',function(req,res,next){
   res.render('register',{title:'register'});
 }).post('/register',function(req,res){
   console.log("start post");
-  var User = global.dbHandel.getModel('user');
+  var User = global.dbHandel.getModel('users');
   var uname = req.body.uname;
   var upwd = req.body.upwd;
   console.log(uname+" "+upwd);

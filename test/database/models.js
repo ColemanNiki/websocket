@@ -1,6 +1,6 @@
 module.exports={
-    user:{
+    users:{
         name:{type:String,required:true},
-        password:{type:String,required:true}
+        pwd:{type:String,required:true}
     }
 };
