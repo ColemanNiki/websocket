@@ -16,7 +16,7 @@ router.get('/login',function(req,res,next){
 });
 router.get('/register',function(req,res,next){
   res.render('register',{title:'register'});
-}).post(function(req,res){
+}).post('/register',function(req,res){
   console.log("start post");
   var User = global.dbHandel.getModel('user');
   var uname = req.body.name;
