@@ -17,6 +17,7 @@ var users = require('./routes/users');
 
 var app = express();
 app.use(session({
+  resave:false,
   secret:"sdfasdfiasdhf",
   cookie:{maxAge:60*1000*30}
 }));
