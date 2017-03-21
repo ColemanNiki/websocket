@@ -17,8 +17,22 @@
     </p>
   </body>
   <script>
-    $('idBtn').click(function(){
-      alert("正在查找id");
+    $('#idBtn').click(function(){
+      $.ajax({ 
+                url:'/user/getId',
+                type:'post',
+                data: {},
+                success: function(data,status){ 
+                    if(status == 'success'){ 
+                        alert(data);
+                    }
+                },
+                error: function(data,status){ 
+                    if(status == 'error'){ 
+                        alert("cipwi;e");
+                    }
+                }
+            });
     })
   </script>
 </html>

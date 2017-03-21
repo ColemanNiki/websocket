@@ -57,12 +57,12 @@ router.get('/register',function(req,res,next){
   res.render('register',{title:'register'});
 }).post('/register',function(req,res){
   var User = global.dbHandel.getModel('users');
-  var uname = req.body.uname;
+  var uname = req.body.uname; 
   var upwd = req.body.upwd;
   User.findOne({name:uname},function(err,doc){
-    if(err){
-      res.send(500);
+    if(err){        
       console.log(err);
+      res.send(500);
     }else if(doc){
       res.send(500);
       console.log("存在用户");
