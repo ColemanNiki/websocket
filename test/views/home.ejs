@@ -24,8 +24,9 @@
                 type:'get',
                 data: {},
                 success: function(data){ 
+                  console.log(data);
                     if(data.success == 1){
-                      alert(data.message.id);
+                      alert(data.message.name+":"+data.message.key);
                     }
                     else{
                       alert(msgTip[data.message]);
