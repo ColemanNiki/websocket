@@ -42,7 +42,7 @@ router.get('/login',function(req,res,next){
           id : doc._id,
           sign : true
         });
-        console.log(req.session.user);
+        console.log(req.session);
         res.send(200);
       }
       else{

@@ -8,6 +8,7 @@
     a:hover{text-decoration: underline;}
     </style>
     <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/messageTip.js"></script>
   </head>
   <body>
     <h1><%= title %></h1>
@@ -19,18 +20,20 @@
   <script>
     $('#idBtn').click(function(){
       $.ajax({ 
-                url:'/user/getId',
-                type:'post',
+                url:'/users/getId',
+                type:'get',
                 data: {},
-                success: function(data,status){ 
-                    if(status == 'success'){ 
-                        alert(data);
+                success: function(data){ 
+                    if(data.success == 1){
+                      alert(data.message.id);
+                    }
+                    else{
+                      alert(msgTip[data.message]);
+                      window.location.href='/';
                     }
                 },
                 error: function(data,status){ 
-                    if(status == 'error'){ 
-                        alert("cipwi;e");
-                    }
+                    alert(msgTip['404']);
                 }
             });
     })
