@@ -15,7 +15,7 @@ stream.use(function(request,response){
   console.log("streamServer come");
   response.connection.setTimeout(0);
   request.on('data',function(data){
-    stream.send();
+    stream.send(data);
   });
 });
 
