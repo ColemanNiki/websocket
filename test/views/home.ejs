@@ -14,7 +14,8 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <p><a href="/outlogin">注销 </a>
-    <button id="idBtn" class="btn btn-info col-sm-2 col-sm-offset-10">获得我的直播Id</a>
+    <button id="idBtn" class="btn btn-info col-sm-2 col-sm-offset-10">获得我的直播Id</button>
+    <input type="text" id="liveURL" width="100px" />
     </p>
   </body>
   <script>
@@ -26,7 +27,7 @@
                 success: function(data){ 
                   console.log(data);
                     if(data.success == 1){
-                      alert(data.message.name+":"+data.message.key);
+                      $("#liveURL").val("http://localhost:8081/send?name="+data.message.name+"&key="+data.message.key);
                     }
                     else{
                       alert(msgTip[data.message]);

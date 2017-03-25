@@ -5,6 +5,7 @@
  */
 
 var app = require('../app');
+var stream = require('../stream');
 var debug = require('debug')('test:server');
 var http = require('http');
 var WebSocket = require('ws');
@@ -21,23 +22,23 @@ var STREAM_SECRET = 'secret',
 	WEBSOCKET_PORT = 8082,
 	RECORD_STREAM = false;
 
+// var streamServer = http.createServer(function(request,response){
+// // var streamServer = https.createServer(options,function(request,response){
+//   var params = request.url.substr(1).split('/');
 
-var streamServer = https.createServer(options,function(request,response){
-  var params = request.url.substr(1).split('/');
-
-	if (params[0] !== STREAM_SECRET) {
-		console.log(
-			'Failed Stream Connection: '+ request.socket.remoteAddress + ':' +
-			request.socket.remotePort + ' - wrong secret.'
-		);
-		response.end();
-	}
-  console.log("streamServer come");
-  response.connection.setTimeout(0);
-  request.on('data',function(data){
-    socketServer.broadcast(data);
-  });
-}).listen(STREAM_PORT);
+// 	if (params[0] !== STREAM_SECRET) {
+// 		console.log(
+// 			'Failed Stream Connection: '+ request.socket.remoteAddress + ':' +
+// 			request.socket.remotePort + ' - wrong secret.'
+// 		);
+// 		response.end();
+// 	}
+//   console.log("streamServer come");
+//   response.connection.setTimeout(0);
+//   request.on('data',function(data){
+//     socketServer.broadcast(data);
+//   });
+// }).listen(STREAM_PORT);
 
 /**
  * Get port from environment and store in Express.
@@ -70,12 +71,18 @@ socketServer.on('connection',function(socket){
 });
 
 socketServer.broadcast = function(data){
+  console.log(1);
   socketServer.clients.forEach(function each(client){
     if(client.readyState == WebSocket.OPEN){
       client.send(data);
     }
   });
 };
+
+stream.send = socketServer.broadcast;
+// var streamServer = http.createServer(stream).listen(STREAM_PORT);
+var streamServer = https.createServer(options,stream).listen(STREAM_PORT);
+
 /**
  * Normalize a port into a number, string, or false.
  */
