@@ -16,6 +16,8 @@ var options = {
   cert: fs.readFileSync('center.pem')
 }
 
+var isSSL = true;
+
 var STREAM_SECRET = 'secret',
 	STREAM_PORT = 8081,
 	WEBSOCKET_PORT = 8082,
@@ -49,8 +51,14 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-// var server = http.createServer(app);
-var server = https.createServer(options,app);
+
+var server;
+if(isSSL){
+  server = https.createServer(options,app);
+}
+else{
+  server = http.createServer(app);
+}
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -78,8 +86,13 @@ socketServer.broadcast = function(data){
 };
 
 stream.send = socketServer.broadcast;
-// var streamServer = http.createServer(stream).listen(STREAM_PORT);
-var streamServer = https.createServer(options,stream).listen(STREAM_PORT);
+var streamServer;
+if(isSSL){
+  streamServer = https.createServer(options,stream).listen(STREAM_PORT);
+}
+else{
+  streamServer = http.createServer(stream).listen(STREAM_PORT);
+}
 
 /**
  * Normalize a port into a number, string, or false.
