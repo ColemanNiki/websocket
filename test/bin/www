@@ -16,7 +16,7 @@ var options = {
   cert: fs.readFileSync('center.pem')
 }
 
-var isSSL = true;
+var isSSL = false;
 
 var STREAM_SECRET = 'secret',
 	STREAM_PORT = 8081,
