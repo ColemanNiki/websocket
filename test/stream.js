@@ -14,7 +14,8 @@ stream.use(function(request,response){
   }
   else{
     var lives = global.dbHandel.getModel('lives');
-    lives.findOne({name:arg.name,_id:arg.key,beused:false},function(err,doc){
+    var liveTips = global.dbHandel.getModel('liveTips');
+    lives.findOne({name:arg.name,_id:arg.key,state:0},function(err,doc){
       console.log("has value");
       if(err){
         response.send(404);
@@ -25,10 +26,23 @@ stream.use(function(request,response){
           console.log("streamServer come");
           response.connection.setTimeout(0);
           doc.beused = true;
-          lives.update({_id:arg.key},{beused:true},function(error){});
+          lives.update({_id:arg.key},{state:1},function(error){});
+          liveTips.update({_id:doc.tipId},{beused:true,startTime:Date.now()},function(err){});
           request.on('data',function(data){
             stream.send(data);
           });
+          request.on('close',function(){
+            liveTips.update({_id:doc.tipId},{endTime:Date.now()},function(err){});
+            lives.remove({_id:arg.key},function(err){
+              console.log('删除');
+            });
+            console.log("链接已经断开了");
+            response.send(404);
+          })
+        }
+        else{
+          console.log("该直播间已经过期啦");
+          response.send(404);
         }
       }
     })
