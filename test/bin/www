@@ -10,7 +10,7 @@ var http = require('http');
 var WebSocket = require('ws');
 var fs = require('fs');
 var https = require('https');
-
+var url = require('url');
 var options = {
   key:fs.readFileSync('center.key'),
   cert: fs.readFileSync('center.pem')
@@ -69,7 +69,8 @@ server.on('error', onError);
 var socketServer = new WebSocket.Server({server:server});
 socketServer.connectionCount = 0;
 socketServer.on('connection',function(socket){
-  console.log("start websocket");
+  var arg = url.parse(socket.upgradeReq.url,true).query;
+  console.log(arg);
   socketServer.connectionCount++;
   socket.on('close',function(code,message){
     socketServer.connectionCount--;
