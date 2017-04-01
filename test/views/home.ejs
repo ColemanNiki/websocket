@@ -33,7 +33,7 @@
                 success: function(data){ 
                   console.log(data);
                     if(data.success == 1){
-                      $("#liveURL").val("http://localhost:8081/send?name="+data.message.name+"&key="+data.message.key);
+                      $("#liveURL").val(data.message.sendUrl);
                     }
                     else{
                       console.log(msgTip[data.message]);

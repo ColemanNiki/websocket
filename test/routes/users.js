@@ -6,6 +6,11 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 router.post('/getId',function(req,res){
+  var sendUrl;
+  if(global.isSSL)
+    sendUrl = "https://www.colemanniki.cn:8081/send?";
+  else
+    sendUrl = "http://localhost:8081/send?";
   if(!req.session.user)
     res.json({success:0,message:400});
   else{
@@ -48,7 +53,7 @@ router.post('/getId',function(req,res){
               live.save(function(err,doc){
                 if(err) res.json({success:0,message:421});
                 else{
-                  res.json({success:1,message:{name:name,key:doc._id}});
+                  res.json({success:1,message:{sendUrl:sendUrl+"name="+name+"&key="+doc._id}});
                 }
               })
             }
@@ -75,7 +80,7 @@ router.post('/getId',function(req,res){
             doc.livePortrait = req.body.livePortrait || "";
             doc.save(function(err){
               if(err) res.json({success:0,message:422});
-              else res.json({success:1,message:{name:name,key:tempId}});
+              else res.json({success:1,message:{sendUrl:sendUrl+"name="+name+"&key="+tempId}});
             });
           }
         })
