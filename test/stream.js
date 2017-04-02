@@ -29,7 +29,7 @@ stream.use(function(request,response){
           lives.update({_id:arg.key},{state:1},function(error){});
           liveTips.update({_id:doc.tipId},{beused:true,startTime:Date.now()},function(err){});
           request.on('data',function(data){
-            stream.send(data);
+            stream.send(data,arg.key);
           });
           request.on('close',function(){
             liveTips.update({_id:doc.tipId},{endTime:Date.now()},function(err){});
