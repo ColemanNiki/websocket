@@ -7,7 +7,6 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  console.log(req.session.user);
   if (req.session.user && req.session.user.sign) {
     res.render('home', { title: 'Express' });
   } else {
@@ -21,7 +20,6 @@ router.get('/show', function (req, res, next) {
     var wsUrl;
     if (global.isSSL) wsUrl = 'wss://';
     else wsUrl = 'ws://';
-    console.log("url parse:");
     wsUrl += req.host + ':8100/show?room=' + arg.room;
     res.render('show', { title: 'Express', wsUrl: wsUrl });
   }
@@ -39,13 +37,10 @@ router.get('/login', function (req, res, next) {
   var User = global.dbHandel.getModel('users');
   var uname = req.body.uname;
   var upwd = req.body.upwd;
-  console.log(uname + " " + upwd);
   User.findOne({ name: uname }, function (err, doc) {
     if (err) {
       res.send(500);
-      console.log(err);
     } else if (!doc) {
-      console.log("1");
       res.send(404);
     }
     else {
@@ -55,11 +50,9 @@ router.get('/login', function (req, res, next) {
           id: doc._id,
           sign: true
         });
-        console.log(req.session);
         res.send(200);
       }
       else {
-        console.log(doc.pwd);
         res.send(404);
       }
     }
@@ -74,7 +67,6 @@ router.get('/register', function (req, res, next) {
   var upwd = req.body.upwd;
   User.findOne({ name: uname }, function (err, doc) {
     if (err) {
-      console.log(err);
       res.send(500);
     } else if (doc) {
       res.send(500);

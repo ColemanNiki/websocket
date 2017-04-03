@@ -5,13 +5,13 @@ var session = require('express-session');
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
-router.get('/getLiveRoomList',function(req,res,next){
+router.get('/getLiveRoomList', function (req, res, next) {
   var lives = global.dbHandel.getModel('lives');
-  lives.find({},function(err,docs){
-    if(err)
-      res.json({success:0,message:424});
-    else{
-      res.json({success:1,message:docs});
+  lives.find({}, function (err, docs) {
+    if (err)
+      res.json({ success: 0, message: 424 });
+    else {
+      res.json({ success: 1, message: docs });
     }
   })
 });
@@ -24,11 +24,9 @@ router.post('/getId', function (req, res) {
   if (!req.session.user)
     res.json({ success: 0, message: 400 });
   else {
-    console.log("getId");
     var lives = global.dbHandel.getModel('lives');
     var liveTips = global.dbHandel.getModel('liveTips');
     var name = req.session.user.name;
-    console.log("start find-----------------------------------------------");
     lives.findOne({ name: name, state: 1 }, function (err, doc) {
       if (err) {
         res.json({ success: 0, message: 501 });
@@ -39,7 +37,6 @@ router.post('/getId', function (req, res) {
         }
         else {
           lives.findOne({ name: name, state: 0 }, function (err, doc) {
-            console.log("start find");
             if (err) {
               res.json({ success: 0, message: 501 });
             }
@@ -68,15 +65,6 @@ router.post('/getId', function (req, res) {
                     })
                   }
                 })
-                //   live.save(function(err,doc){
-                //     if(err)
-                //       res.json({success:0,message:501});
-                //     else
-                //       res.json({success:1,message:{name:name,key:doc._id}});
-                //   });
-                // }
-                // else
-                //   res.json({success:1,message:{name:doc.name,key:doc._id}});
               }
               else {
                 var tempId = doc._id;
@@ -94,14 +82,12 @@ router.post('/getId', function (req, res) {
                     });
                   }
                 })
-
               }
             }
           });
         }
       }
     })
-
   }
 })
 module.exports = router;
