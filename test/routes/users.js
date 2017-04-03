@@ -5,6 +5,16 @@ var session = require('express-session');
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
+router.get('/getLiveRoomList',function(req,res,next){
+  var lives = global.dbHandel.getModel('lives');
+  lives.find({},function(err,docs){
+    if(err)
+      res.json({success:0,message:424});
+    else{
+      res.json({success:1,message:docs});
+    }
+  })
+});
 router.post('/getId', function (req, res) {
   var sendUrl;
   if (global.isSSL)

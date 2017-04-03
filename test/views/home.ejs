@@ -32,8 +32,37 @@
     <button id="idBtn" class="btn btn-info col-sm-2 col-sm-offset-10">获得我的直播Id</button>
     <input type="text" id="liveURL" width="100px" /> 下载推流软件： <a href="download/ffmpeg.rar" download="ffmpeg.rar">下载</a>
   </p>
+  <ul id='roomList'>
+  </ul>
 </body>
 <script>
+  $.ajax({
+    url:'/users/getLiveRoomList',
+    tyep:'get',
+    data:{},
+    success:function(data){
+      if(data.success == 0)
+        alert(msgTip[data.message]);
+      else{
+        var roomList = "";
+        data.message.forEach(function(room){
+          var roomDom = '<li> 主播：'+room.name;
+          if(room.state == 1){
+            roomDom += ' 正在直播 <a  target="_Blank" href="'+window.location.protocol+"//"+window.location.host+"/show?room=" +room._id +'">观看</a></li>';
+          }
+          else{
+            roomDom += '未开始直播</li>';
+          }
+          roomList += roomDom;
+        });
+        $('#roomList').append(roomList);
+        console.log(data.message);
+      }
+    },
+    error:function(data){
+
+    }
+  })
   $('#idBtn').click(function () {
     $.ajax({
       url: '/users/getId',

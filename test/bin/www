@@ -16,7 +16,7 @@ var options = {
   cert: fs.readFileSync('center.pem')
 }
 
-global.isSSL = false;
+global.isSSL = true;
 global.connectList = [];
 
 var STREAM_SECRET = 'secret',
