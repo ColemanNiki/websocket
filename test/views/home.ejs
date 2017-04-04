@@ -5,19 +5,11 @@
   <title>
     <%= title %>
   </title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <style type="text/css">
-    a {
-      margin-left: 20px;
-      text-decoration: none;
-    }
-    
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <!--<link rel='stylesheet' href='/stylesheets/style.css' />-->
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />  
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/messageTip.js"></script>
+  <script src="javascripts/tools.js"></script>
 </head>
 
 <body>
@@ -27,13 +19,65 @@
   <p>Welcome to
     <%= title %>
   </p>
-  <p><a href="/outlogin">注销 </a> 标题： <input type="text" id='liveTitle' width="100px" /> 简介： <input type="text" id='liveMsg'
+  <img id='imgHead' src="" />
+  <input id='preInput' type="file" onchange="previewImage('preInput','imgHead')" value="上传图片">
+    <p><a href="/outlogin">注销 </a> 标题： <input type="text" id='liveTitle' width="100px" /> 简介： <input type="text" id='liveMsg'
       width="100px" />
     <button id="idBtn" class="btn btn-info col-sm-2 col-sm-offset-10">获得我的直播Id</button>
     <input type="text" id="liveURL" width="100px" /> 下载推流软件： <a href="download/ffmpeg.rar" download="ffmpeg.rar">下载</a>
   </p>
   <ul id='roomList'>
   </ul>
+  
+  <form class="form-horizontal">
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">创建房间</legend>
+      </div>
+    
+
+    
+
+    <div class="control-group">
+          <label class="control-label">File Button</label>
+
+          <!-- File Upload -->
+          <div class="controls">
+            <input class="input-file" id="fileInput" type="file">
+          </div>
+        </div><div class="control-group">
+          <label class="control-label">Button</label>
+
+          <!-- Button -->
+          <div class="controls">
+            <button class="btn btn-info">选择头像</button>
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="control-label" for="input01">房间名</label>
+          <div class="controls">
+            <input type="text" placeholder="不超过11个字符" class="input-xlarge">
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Textarea -->
+          <label class="control-label">直播简介</label>
+          <div class="controls">
+            <div class="textarea">
+                  <textarea type="" class=""> </textarea>
+            </div>
+          </div>
+        </div>
+
+    </fieldset>
+  </form>
+
 </body>
 <script>
   $.ajax({
