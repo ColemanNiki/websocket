@@ -5,11 +5,12 @@
  */
 
 var app = require('../app');
-var stream = require('../stream');
+var stream = require('../module/stream');
 var http = require('http');
 var fs = require('fs');
 var https = require('https');
 var url = require('url');
+var path = require('path');
 var options = {
   key: fs.readFileSync('center.key'),
   cert: fs.readFileSync('center.pem')
@@ -17,6 +18,9 @@ var options = {
 
 global.isSSL = false;
 global.connectList = [];
+global.APP_PATH = path.join(__dirname,'../');
+
+console.log("现在获取文件根目录",global.APP_PATH);
 
 var STREAM_PORT = 8081;
 
@@ -40,7 +44,7 @@ else {
 server.listen(port);
 server.on('error', onError);
 
-var socketServer = require('../socket')(server);
+var socketServer = require('../module/socket')(server);
 
 stream.send = socketServer.broadcast;
 var streamServer;

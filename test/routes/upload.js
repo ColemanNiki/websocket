@@ -1,11 +1,16 @@
 var express = require('express');
+var multer = require('../tools/multerUtil');
 var router = express.Router();
-var multiparty = require('multiparty');
-var fs = require('fs');
+var file = multer.single('file');
 
-router.get('/one',function(req,res,next){
-    var form = new multiparty.Form({uploadDir:'./public/images/'});
-    form.parse(req,function(err,fields,files){
-        
-    })
+router.post('/logo',function(req,res,next){
+    file(req,res,function(err){
+        if(err){
+            console.log(err);
+            res.json({success:0,message:600});
+        }
+        res.json({success:1,message:{logoUrl:'shenmegui'}});
+    });
 });
+
+module.exports = router;
