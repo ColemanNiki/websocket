@@ -1,10 +1,11 @@
 var express = require('express');
 var multer = require('../tools/multerUtil');
 var router = express.Router();
-var file = multer.single('file');
+var upload = multer.single('file');
 
 router.post('/logo',function(req,res,next){
-    file(req,res,function(err){
+    console.log("true");
+    upload(req,res,function(err){
         if(err){
             console.log(err);
             res.json({success:0,message:600});

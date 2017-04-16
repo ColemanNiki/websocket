@@ -10,5 +10,8 @@ function previewImage(fileId,imgId){
     }
     else url = window.URL.createObjectURL(file.files[0]);
     document.getElementById(imgId).src = url;
+    var width = document.getElementById(imgId).width;
+    console.log(width);
+    document.getElementById(imgId).style.height = width+8+'px';
 }
 

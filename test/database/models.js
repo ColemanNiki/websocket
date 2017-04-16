@@ -2,7 +2,8 @@ var Schema = require('mongoose').Schema;
 module.exports={
     users:{
         name:{type:String,required:true},
-        pwd:{type:String,required:true}
+        pwd:{type:String,required:true},
+        
     },
     liveTips:{
         name:{type:String,required:true},
