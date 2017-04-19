@@ -4,9 +4,8 @@ var storage = multer.diskStorage({
         cb(null,global.APP_PATH+'/public/upload');
     },
     filename:function(req,file,cb){
-        console.log(file);
         var fileFormat = (file.originalname).split('.');
-        cb(null,file.filename+'_'+Date.now()+"."+fileFormat[fileFormat.length-1]);
+        cb(null,Date.now()+"_"+file.originalname);
     }
 });
 var upload = multer({
