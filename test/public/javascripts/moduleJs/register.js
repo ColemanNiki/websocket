@@ -1,54 +1,43 @@
-function setImg(){
+function setImg() {
     var fileChance = $('#fileChance');
     fileChance.click();
 }
 
-function register(){
+function register() {
     var username = $("#username").val();
     var password = $("#password").val();
     var checkPassword = $("#checkPassword").val();
     var email = $("#email").val();
-    // if(username != "" && password != "" && checkPassword != "" && email != "" && password == checkPassword){
-    //     var data = {
-    //         username:username,
-    //         password:password,
-    //         email:email
-    //     };
-        // $('#imgForm').submit(function(e){
-        //     alert("this");
-        //     var data = new FormData($('#imgForm'));
-        //     $.ajax({
-        //         url:'/upload/portrait',
-        //         type:'post',
-        //         data: data,
-        //         processData:false,
-        //         contentType:false,
-        //         success:function(data,status){
-        //             console.log(data);
-        //         }
-        //     })
-        // });
-        // $("#registerForm")[0].onsubmit();
-    // }
     var file = document.getElementById('fileChance');
-    var formData = new FormData();
-    formData.append('file',file.files[0]);
-    $.ajax({
-        url:'/upload/logo',
-        type:'post',
-        data:formData,
-        cache:false,
-        contentType:false,
-        processData:false,
-        success:function(data){
-            console.log(data);
-        },
-        error:function(){
-            console.log("chucuo");
+    if (username != "" && password != "" && checkPassword != "" && email != "" && password == checkPassword) {
+        var data = {
+            name:username,
+            pwd: password,
+            email:email
         }
-    })
-}
-
-function sendImg(){
-    return true;
+        var formData = new FormData();
+        if(file.files[0]){
+            formData.append('file',file.files[0]);
+        }
+        data = JSON.stringify(data);
+        formData.append('name',name);
+        formData.append('data',data);
+        $.ajax({
+            url: '/users/register',
+            type: 'post',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if(data.success = 1){
+                    console.log(data);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            },
+            crossDomain: true
+        })
+    }
 }

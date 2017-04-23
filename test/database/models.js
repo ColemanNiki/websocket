@@ -3,7 +3,8 @@ module.exports={
     users:{
         name:{type:String,required:true},
         pwd:{type:String,required:true},
-        
+        email:{type:String,reqired:false},
+        portraitUrl:{type:String,reqired:false}
     },
     liveTips:{
         name:{type:String,required:true},

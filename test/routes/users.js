@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
+var multer = require('../tools/multerUtil');
+var upload = multer.single('file');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
@@ -12,6 +14,43 @@ router.get('/getLiveRoomList', function (req, res, next) {
       res.json({ success: 0, message: 424 });
     else {
       res.json({ success: 1, message: docs });
+    }
+  })
+});
+router.post('/register',upload, function (req, res) {
+  console.log(req.file);
+  console.log(req.body.data);
+  var data = JSON.parse(req.body.data);
+  var User = global.dbHandel.getModel('users');
+  var uname = data.name;
+  var upwd = data.pwd;
+  var email = data.email;
+  console.log("pwd:",upwd);
+  User.findOne({ name: uname }, function (err, doc) {
+    if (err) {
+      res.send(500);
+    } else if (doc) {
+      res.send(500);
+      console.log("存在用户");
+    } else {
+      var nUser = new User({
+        name: uname,
+        pwd: upwd,
+        email:email
+      });
+      if(req.file){
+        nUser.portraitUrl = req.file.filename;
+      }
+      nUser.save(function (err,doc) {
+        if (err) {
+          console.log(nUser);
+          res.send(500);
+          console.log(err);
+        } else {
+          console.log("添加成功");
+          res.json({success:1,message:{userId:doc._id}});
+        }
+      })
     }
   })
 });
