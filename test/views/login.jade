@@ -1,0 +1,63 @@
+doctype html
+html(lang='en')
+  head
+    meta(name='viewport',content='width=device-width,initial-scale=1.0')
+    |     
+    title Free Bootstrap Admin Template : Binary Admin
+    // BOOTSTRAP STYLES
+    link(href="stylesheets/bootstrap.min.css", rel="stylesheet")
+    // FONTAWESOME STYLES
+    link(href="stylesheets/font-awesome.css", rel="stylesheet")
+    script(src='javascripts/moduleJs/login.js')        
+  body(onload='load()')
+    .container
+      .row.text-center
+        .col-md-12
+          br
+          br
+          |                 
+          h2  用户登陆
+          |                
+          |                 
+          h5#message
+          |                  
+          br
+      |          
+      .row
+        .col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3.col-xs-10.col-xs-offset-1
+          .panel.panel-default
+            .panel-heading
+              strong    输入账号信息
+            |                             
+            .panel-body
+              form
+                br
+                |                                      
+                .form-group.input-group
+                  span.input-group-addon
+                    i.fa.fa-tag
+                  |                                             
+                  input#username.form-control(type="text", placeholder="Your Username ")
+                |                                                                               
+                .form-group.input-group
+                  span.input-group-addon
+                    i.fa.fa-lock
+                  |                                             
+                  input#password.form-control(type="password", placeholder="Your Password")
+                |                                     
+                .form-group
+                  label.checkbox-inline
+                    input#remember(type="checkbox")
+                    |  记住账号密码
+                  |                                             
+                |                                      
+                |                                      
+                button#login.btn.btn-primary(onclick="toLogin()") 登陆
+                |                                     
+                hr
+                |  没有账号 ? 
+                a(href="/register") 点击 
+    |     
+    script(src="javascripts/jquery.min.js")
+    |     
+    script(src="javascripts/bootstrap.min.js")

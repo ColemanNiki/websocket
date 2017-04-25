@@ -1,0 +1,60 @@
+head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Free Bootstrap Admin Template : Binary Admin
+    // BOOTSTRAP STYLES
+    link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+    // FONTAWESOME STYLES
+    link(href='stylesheets/font-awesome.css', rel='stylesheet')
+    // GOOGLE FONTS
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
+    // JQUERY SCRIPTS
+    script(src='javascripts/jquery.min.js')
+    // BOOTSTRAP SCRIPTS
+    script(src='javascripts/bootstrap.min.js')
+    script(src='javascripts/tools.js')
+    script(src='javascripts/moduleJs/register.js')
+  body
+    .container
+      .row.text-center
+        .col-md-12
+          br
+          br
+          h2  账号注册
+          h5#message
+          br
+      .row
+        .col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3.col-xs-10.col-xs-offset-1
+          .panel.panel-default
+            .panel-heading
+              strong   新用户？完成注册
+            .panel-body
+              .form-group.input-group.col-md-12
+                  .row 
+                      .col-md-6.col-md-offset-3
+                          img#portrait(class='img-circle img-thumbnail carousel-inner',src='images/portrait/default.jpg',onclick='setImg()')
+                          form#imgForm(action='/upload/logo', method='post', enctype='multipart/form-data')
+                            input#fileChance(type='file', name='file',onchange='previewImage("fileChance","portrait")')
+                            input#uploadImg(type='submit', value='提交', onclick='sendImg()')
+              form#registerForm(role='form')
+                br              
+                .form-group.input-group
+                  span.input-group-addon
+                    i.fa.fa-circle-o-notch
+                  input#username.form-control(type='text', placeholder='Desired Username')
+                .form-group.input-group
+                  span.input-group-addon @
+                  input#email.form-control(type='text', placeholder='Your Email')
+                .form-group.input-group
+                  span.input-group-addon
+                    i.fa.fa-lock
+                  input#password.form-control(type='password', placeholder='Enter Password')
+                .form-group.input-group
+                  span.input-group-addon
+                    i.fa.fa-lock
+                  input#checkPassword.form-control(type='password', placeholder='Retype Password')
+                button(type='button',onclick='register()') 注册
+                hr
+                |                                    已有账号？  
+                a(href='/login') 登陆
+
