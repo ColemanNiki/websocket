@@ -22,7 +22,7 @@ var toLogin = function () {
                     localStorage.setItem('username',username);
                     localStorage.setItem('password',password);
                 }
-                // location.href = 'home';
+                location = "index"
             }
         },
         error: function (data, status) {

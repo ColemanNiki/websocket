@@ -31,7 +31,7 @@ function register() {
             processData: false,
             success: function (data) {
                 if(data.success = 1){
-                    console.log(data);
+                    location="login";
                 }
             },
             error: function (res) {

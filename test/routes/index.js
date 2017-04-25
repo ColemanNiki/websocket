@@ -7,11 +7,17 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  if (req.session.user && req.session.user.sign) {
-    res.render('home', { title: 'Express' });
-  } else {
-    res.render('index', { title: 'Express' });
-  }
+  res.render('index',{user:req.session.user})
+});
+router.get('/index', function (req, res, next) {
+  res.render('index',{user:req.session.user})
+});
+router.get('/logout',function(req,res,next){
+  req.session.user = null;
+  res.render('index',{user:req.session.user})
+});
+router.get('/createRoom',function(req,res,next){
+  res.render('createRoom',{user:req.session.user});
 });
 
 router.get('/show', function (req, res, next) {
@@ -48,6 +54,7 @@ router.get('/login', function (req, res, next) {
         req.session.user = new Object({
           name: uname,
           id: doc._id,
+          portraitUrl:doc.portraitUrl,
           sign: true
         });
         res.send(200);

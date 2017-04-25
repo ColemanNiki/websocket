@@ -33,9 +33,10 @@ head
                   .row 
                       .col-md-6.col-md-offset-3
                           img#portrait(class='img-circle img-thumbnail carousel-inner',src='images/portrait/default.jpg',onclick='setImg()')
-                          form#imgForm(action='/upload/logo', method='post', enctype='multipart/form-data')
-                            input#fileChance(type='file', name='file',onchange='previewImage("fileChance","portrait")')
-                            input#uploadImg(type='submit', value='提交', onclick='sendImg()')
+                          div(style="display:none")
+                            form#imgForm(action='/upload/logo', method='post', enctype='multipart/form-data')
+                              input#fileChance(type='file', name='file',onchange='previewImage("fileChance","portrait")')
+                              input#uploadImg(type='submit', value='提交', onclick='sendImg()')
               form#registerForm(role='form')
                 br              
                 .form-group.input-group
