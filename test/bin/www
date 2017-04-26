@@ -11,16 +11,19 @@ var fs = require('fs');
 var https = require('https');
 var url = require('url');
 var path = require('path');
-var options = {
-  key: fs.readFileSync('center.key'),
-  cert: fs.readFileSync('center.pem')
-}
-
+var options = {}
 global.isSSL = false;
 global.connectList = [];
-global.APP_PATH = path.join(__dirname,'../');
+global.APP_PATH = path.join(__dirname, '../');
 
-console.log("现在获取文件根目录",global.APP_PATH);
+if (global.isSSL) {
+  options = {
+    key: fs.readFileSync('center.key'),
+    cert: fs.readFileSync('center.pem')
+  };
+}
+
+console.log("现在获取文件根目录", global.APP_PATH);
 
 var STREAM_PORT = 8081;
 
