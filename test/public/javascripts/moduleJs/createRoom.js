@@ -13,11 +13,14 @@ $(document).ready(function () {
                     $("#room_title").val(data.message.liveTitle);
                     $("#room_message").val(data.message.liveMsg);
                     if (data.message.beused) {
-                        $("#create_button").attr('disabled', true).html("正在直播");
+                        $("#create_button").addClass('disabled').attr('disabled', true).html("正在直播");
                     }
                     else {
                         $("#create_button").html("修改房间");
                     }
+                }
+                else{
+                    $("#key_button").addClass('disabled').attr('disabled',true);
                 }
             }
             else {
@@ -55,7 +58,12 @@ function create_room() {
             contentType: false,
             processData: false,
             success:function(data){
-                console.log(data);
+                if(data.success == 1){
+                    alert("您的直播地址为： "+data.message.sendUrl+"/n"+"请复制保存");
+                }
+                else{
+                    alert(msgTip[data.message]);
+                }
             },
             error:function(data){
                 console.log(data);

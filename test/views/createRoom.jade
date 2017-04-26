@@ -37,7 +37,9 @@ block page-content
                   span.input-group-addon 
                     i.fa.fa-barcode
                   textarea.form-control#room_message(type='text', placeholder='room message')
-                button#create_button(type='button',onclick='create_room()') 创建
+                div.row
+                  button#create_button.btn.btn-primary.col-md-3.col-md-offset-2(type='button',onclick='create_room()') 创建房间
+                  button#key_button.btn.btn-info.col-md-3.col-md-offset-2(type='button',onclick='getkey()') 原地址
   script(src='javascripts/moduleJs/createRoom.js')        
 
   
