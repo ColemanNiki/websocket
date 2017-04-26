@@ -31,7 +31,7 @@ router.post('/create_room', upload, function (req, res, next) {
   var lives = global.dbHandel.getModel('lives');
   lives.findOne({ userId: req.session.user.id }, function (err, doc) {
     if (doc) {
-          var key = tool.create_random_string(8);
+      var key = tool.create_random_string(8);
       doc.name = data.room_name;
       doc.liveTitle = data.room_title;
       doc.liveMsg = data.room_message;
@@ -41,7 +41,7 @@ router.post('/create_room', upload, function (req, res, next) {
         doc.livePortrait = req.file.filename;
       }
       doc.save(function (err, doc) {
-        if (err){
+        if (err) {
           console.log(err);
           res.json({ success: 0, message: 421 });
         }
@@ -57,15 +57,15 @@ router.post('/create_room', upload, function (req, res, next) {
         liveTitle: data.room_title,
         liveMsg: data.room_message,
         createTime: Date.now(),
-        beused:false,
-        userId:req.session.user.id,
-        key:key
+        beused: false,
+        userId: req.session.user.id,
+        key: key
       });
       if (req.file) {
         live.livePortrait = req.file.filename;
       }
       live.save(function (err, doc) {
-        if (err){
+        if (err) {
           console.log(err);
           res.json({ success: 0, message: 421 });
         }
