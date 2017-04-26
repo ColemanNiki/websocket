@@ -1,8 +1,3 @@
-function setImg() {
-    var fileChance = $('#fileChance');
-    fileChance.click();
-}
-
 function register() {
     var username = $("#username").val();
     var password = $("#password").val();
@@ -20,7 +15,6 @@ function register() {
             formData.append('file',file.files[0]);
         }
         data = JSON.stringify(data);
-        formData.append('name',name);
         formData.append('data',data);
         $.ajax({
             url: '/users/register',

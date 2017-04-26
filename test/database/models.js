@@ -8,16 +8,23 @@ module.exports={
     },
     liveTips:{
         name:{type:String,required:true},
-        beused:{type:Boolean,required:true},
-        startTime:{type:Date,required:false},
-        endTime:{type:Date,required:false},
+        createTime:{type:Date,required:true},
+        startTime:{type:Date,required:true},
+        endTime:{type:Date,required:true},
         liveTitle:{type:String,required:false},
         liveMsg:{type:String,required:false},
-        livePortrait:{type:String,required:false}
+        livePortrait:{type:String,required:false},
+        userId:{type:Schema.Types.ObjectId,required:true},
+        roomId:{type:Schema.Types.ObjectId,reqired:true}
     },
     lives:{
         name:{type:String,required:true},
-        tipId:{type:Schema.Types.ObjectId,required:true},
-        state:{type:Number,required:true}
+        createTime:{type:Date,required:true},
+        liveTitle:{type:String,required:false},
+        liveMsg:{type:String,required:false},
+        livePortrait:{type:String,required:false},
+        userId:{type:Schema.Types.ObjectId,required:true},
+        key:{type:String,required:true},
+        beused:{type:Boolean,required:true}
     }
 };

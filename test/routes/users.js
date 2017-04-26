@@ -3,10 +3,79 @@ var router = express.Router();
 var session = require('express-session');
 var multer = require('../tools/multerUtil');
 var upload = multer.single('file');
+var tool = require('../tools/tool');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
+router.get('/get_my_room', function (req, res, next) {
+  var lives = global.dbHandel.getModel('lives');
+  lives.findOne({ userId: req.session.user.id }, function (err, doc) {
+    if (err) {
+      res.json({ success: 0, message: 425 })
+    } else if (doc) {
+      res.json({ success: 1, message: doc });
+    }
+    else {
+      res.json({ success: 1, message: null });
+    }
+  })
+});
+router.post('/create_room', upload, function (req, res, next) {
+  var sendUrl;
+  if (global.isSSL)
+    sendUrl = "https://www.colemanniki.cn:8081/send?";
+  else
+    sendUrl = "http://localhost:8081/send?";
+  var data = JSON.parse(req.body.data);
+  var lives = global.dbHandel.getModel('lives');
+  lives.findOne({ userId: req.session.user.id }, function (err, doc) {
+    if (doc) {
+          var key = tool.create_random_string(8);
+      doc.name = data.room_name;
+      doc.liveTitle = data.room_title;
+      doc.liveMsg = data.room_message;
+      doc.createTime = Date.now();
+      doc.key = key;
+      if (req.file) {
+        doc.livePortrait = req.file.filename;
+      }
+      doc.save(function (err, doc) {
+        if (err){
+          console.log(err);
+          res.json({ success: 0, message: 421 });
+        }
+        else {
+          res.json({ success: 1, message: { sendUrl: sendUrl + "id=" + doc._id + "&key=" + key } });
+        }
+      })
+    }
+    else {
+      var key = tool.create_random_string(8);
+      var live = new lives({
+        name: data.room_name,
+        liveTitle: data.room_title,
+        liveMsg: data.room_message,
+        createTime: Date.now(),
+        beused:false,
+        userId:req.session.user.id,
+        key:key
+      });
+      if (req.file) {
+        live.livePortrait = req.file.filename;
+      }
+      live.save(function (err, doc) {
+        if (err){
+          console.log(err);
+          res.json({ success: 0, message: 421 });
+        }
+        else {
+          res.json({ success: 1, message: { sendUrl: sendUrl + "id=" + doc._id + "&key=" + key } });
+        }
+      })
+    }
+  });
+})
 router.get('/getLiveRoomList', function (req, res, next) {
   var lives = global.dbHandel.getModel('lives');
   lives.find({}, function (err, docs) {
@@ -17,15 +86,13 @@ router.get('/getLiveRoomList', function (req, res, next) {
     }
   })
 });
-router.post('/register',upload, function (req, res) {
-  console.log(req.file);
-  console.log(req.body.data);
+router.post('/register', upload, function (req, res) {
   var data = JSON.parse(req.body.data);
   var User = global.dbHandel.getModel('users');
   var uname = data.name;
   var upwd = data.pwd;
   var email = data.email;
-  console.log("pwd:",upwd);
+  console.log("pwd:", upwd);
   User.findOne({ name: uname }, function (err, doc) {
     if (err) {
       res.send(500);
@@ -36,19 +103,19 @@ router.post('/register',upload, function (req, res) {
       var nUser = new User({
         name: uname,
         pwd: upwd,
-        email:email
+        email: email
       });
-      if(req.file){
+      if (req.file) {
         nUser.portraitUrl = req.file.filename;
       }
-      nUser.save(function (err,doc) {
+      nUser.save(function (err, doc) {
         if (err) {
           console.log(nUser);
           res.send(500);
           console.log(err);
         } else {
           console.log("添加成功");
-          res.json({success:1,message:{userId:doc._id}});
+          res.json({ success: 1, message: { userId: doc._id } });
         }
       })
     }

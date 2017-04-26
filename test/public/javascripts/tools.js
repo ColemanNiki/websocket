@@ -1,6 +1,11 @@
 /**
  * 图片预览方法
  */
+function setImg() {
+    var fileChance = $('#fileChance');
+    fileChance.click();
+}
+
 function previewImage(fileId,imgId){
     var url;
     var file = document.getElementById(fileId);
