@@ -19,6 +19,9 @@ router.get('/logout',function(req,res,next){
 router.get('/createRoom',function(req,res,next){
   res.render('createRoom',{user:req.session.user});
 });
+router.get('/hall',function(req,res,next){
+  res.render('hall',{user:req.session.user});
+});
 
 router.get('/show', function (req, res, next) {
   var arg = url.parse(req.url, true).query;
