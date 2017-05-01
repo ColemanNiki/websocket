@@ -6,15 +6,15 @@ module.exports = function (server) {
     router.on('connection', function (socket) {
         var arg = url.parse(socket.upgradeReq.url, true).query;
         console.log(arg);
-        if (global.connectList[arg.room] == null)
-            global.connectList[arg.room] = [];
-        global.connectList[arg.room].push(socket);
-        console.log("now find the room:" + global.connectList[arg.room].length);
+        if (global.connectList[arg.id] == null)
+            global.connectList[arg.id] = [];
+        global.connectList[arg.id].push(socket);
+        console.log("now find the room:" + global.connectList[arg.id].length);
         socket.liveRoom = 'liveRoom';
         socket.on('close', function (code, message) {
-            var index = global.connectList[arg.room].indexOf(socket);
+            var index = global.connectList[arg.id].indexOf(socket);
             if (index > 0) {
-                global.connectList[arg.room].splice(index, 1);
+                global.connectList[arg.id].splice(index, 1);
                 console.log("删除房间成功");
             }
         });

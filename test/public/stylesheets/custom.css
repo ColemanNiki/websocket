@@ -163,7 +163,8 @@ line-height: 30px;
 }
      /*CHAT PANEL*/
  .chat-panel .panel-body {
-height: 450px;
+height:0px;
+padding-bottom:100%;
 overflow-y: scroll;
 }
  .chat-box {
@@ -185,6 +186,11 @@ color: #8d8888;
 }
 .chat-img>img {
     margin-left:20px;
+}
+.bg-img{
+    background-repeat : no-repeat;
+    background-position : 5px 6px;
+    background-size: 100%;
 }
 
 /*==============================================

@@ -15,7 +15,6 @@ module.exports={
         liveMsg:{type:String,required:false},
         livePortrait:{type:String,required:false},
         userId:{type:Schema.Types.ObjectId,required:true},
-        roomId:{type:Schema.Types.ObjectId,reqired:true}
     },
     lives:{
         name:{type:String,required:true},
@@ -25,6 +24,7 @@ module.exports={
         livePortrait:{type:String,required:false},
         userId:{type:Schema.Types.ObjectId,required:true},
         key:{type:String,required:true},
-        beused:{type:Boolean,required:true}
+        state:{type:Number,required:true},
+        startTime:{type:Date,require:false}
     }
 };

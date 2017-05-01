@@ -7,30 +7,37 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index',{user:req.session.user})
+  res.render('index', { user: req.session.user })
 });
 router.get('/index', function (req, res, next) {
-  res.render('index',{user:req.session.user})
+  res.render('index', { user: req.session.user })
 });
-router.get('/logout',function(req,res,next){
+router.get('/logout', function (req, res, next) {
   req.session.user = null;
-  res.render('index',{user:req.session.user})
+  res.render('index', { user: req.session.user })
 });
-router.get('/createRoom',function(req,res,next){
-  res.render('createRoom',{user:req.session.user});
+router.get('/createRoom', function (req, res, next) {
+  res.render('createRoom', { user: req.session.user });
 });
-router.get('/hall',function(req,res,next){
-  res.render('hall',{user:req.session.user});
+router.get('/hall', function (req, res, next) {
+  var lives = global.dbHandel.getModel('lives');
+  lives.find({}, function (err, docs) {
+    if (err)
+      res.render('error');
+    else {
+      res.render('hall', { user: req.session.user, rooms: docs });
+    }
+  })
 });
 
-router.get('/show', function (req, res, next) {
+router.get('/room', function (req, res, next) {
   var arg = url.parse(req.url, true).query;
-  if (arg.room != null) {
+  if (arg.id != null) {
     var wsUrl;
     if (global.isSSL) wsUrl = 'wss://';
     else wsUrl = 'ws://';
-    wsUrl += req.host + ':8100/show?room=' + arg.room;
-    res.render('show', { title: 'Express', wsUrl: wsUrl });
+    wsUrl += req.host + ':8100/show?id=' + arg.id;
+    res.render('room', {wsUrl: wsUrl });
   }
   else
     res.render('error');
@@ -57,7 +64,7 @@ router.get('/login', function (req, res, next) {
         req.session.user = new Object({
           name: uname,
           id: doc._id,
-          portraitUrl:doc.portraitUrl,
+          portraitUrl: doc.portraitUrl,
           sign: true
         });
         res.send(200);

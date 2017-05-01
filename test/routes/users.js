@@ -53,11 +53,11 @@ router.post('/create_room', upload, function (req, res, next) {
     else {
       var key = tool.create_random_string(8);
       var live = new lives({
-        name: data.room_name,
+        name: req.session.user.name,
         liveTitle: data.room_title,
         liveMsg: data.room_message,
         createTime: Date.now(),
-        beused: false,
+        state: 0,
         userId: req.session.user.id,
         key: key
       });

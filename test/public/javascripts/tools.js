@@ -20,3 +20,9 @@ function previewImage(fileId,imgId){
     document.getElementById(imgId).style.height = width+8+'px';
 }
 
+//获得url中参数
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
