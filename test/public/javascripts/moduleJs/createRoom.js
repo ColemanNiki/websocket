@@ -19,8 +19,8 @@ $(document).ready(function () {
                         $("#create_button").html("修改房间");
                     }
                 }
-                else{
-                    $("#key_button").addClass('disabled').attr('disabled',true);
+                else {
+                    $("#key_button").addClass('disabled').attr('disabled', true);
                 }
             }
             else {
@@ -51,23 +51,41 @@ function create_room() {
         data = JSON.stringify(data);
         formData.append('data', data);
         $.ajax({
-            url:'users/create_room',
-            type:'POST',
-            data:formData,
+            url: 'users/create_room',
+            type: 'POST',
+            data: formData,
             cache: false,
             contentType: false,
             processData: false,
-            success:function(data){
-                if(data.success == 1){
-                    alert("您的直播地址为： "+data.message.sendUrl+"/n"+"请复制保存");
+            success: function (data) {
+                if (data.success == 1) {
+                    alert("您的直播地址为： " + data.message.sendUrl + "请复制保存");
                 }
-                else{
+                else {
                     alert(msgTip[data.message]);
                 }
             },
-            error:function(data){
+            error: function (data) {
                 console.log(data);
             }
         })
     }
+}
+
+function getkey() {
+    $.ajax({
+        url: 'users/get_room_key',
+        type: 'GET',
+        success: function (data) {
+            if (data.success == 1) {
+                alert("您的直播地址为： " + data.message.sendUrl + "请复制保存");
+            }
+            else{
+                alert(msgTip[data.message]);
+            }
+        },
+        error:function(data){
+            console.log(data);
+        }
+    })
 }

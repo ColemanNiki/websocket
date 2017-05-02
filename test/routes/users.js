@@ -76,6 +76,23 @@ router.post('/create_room', upload, function (req, res, next) {
     }
   });
 })
+
+router.get('/get_room_key', function (req, res, next) {
+  var sendUrl;
+  if (global.isSSL)
+    sendUrl = "https://www.colemanniki.cn:8081/send?";
+  else
+    sendUrl = "http://localhost:8081/send?";
+  var lives = global.dbHandel.getModel('lives');
+  lives.findOne({ userId: req.session.user.id }, function (err, doc) {
+    if (err) {
+      res.json({ success: 0, message: 424 });
+    }
+    else {
+      res.json({ success: 1, message: { sendUrl: sendUrl + "id=" + doc._id + "&key=" + doc.key } });
+    }
+  })
+})
 router.get('/getLiveRoomList', function (req, res, next) {
   var lives = global.dbHandel.getModel('lives');
   lives.find({}, function (err, docs) {

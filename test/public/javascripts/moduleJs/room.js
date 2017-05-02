@@ -10,12 +10,12 @@ function sendMsg() {
         channel: channelName,
         message: msg
     });
-    
 }
 
 goEasy.subscribe({
     channel: channelName,
     onMessage: function (message) {
+        getElement(message);
         console.log(message.content);
     }
 });
