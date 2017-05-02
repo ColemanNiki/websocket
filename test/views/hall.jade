@@ -1,0 +1,29 @@
+include layout
+
+block page-content
+  #page-wrapper
+    #page-inner
+        .row
+        .col-md-12
+            h2 Tabs & Panels 
+            |    
+            |                         
+            h5 Welcome Jhon Deo , Love to see you back. 
+        // /. ROW
+        hr
+        |                                  
+        |             
+        .row
+            each val in rooms
+                .col-md-4.col-sm-4(style="max-width:300px",onclick="toRoom('#{val._id}')")
+                    .panel.panel-info
+                        .panel-heading
+                            | #{val.liveTitle}
+                        |                         
+                        div.bg-img(style="background-image:url(upload/#{val.livePortrait})")
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.
+                        |                         
+                        .panel-footer
+                            | #{val.name}
+    script(src='javascripts/moduleJs/hall.js')        
