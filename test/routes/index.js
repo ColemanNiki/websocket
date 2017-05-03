@@ -37,7 +37,19 @@ router.get('/room', function (req, res, next) {
     if (global.isSSL) wsUrl = 'wss://';
     else wsUrl = 'ws://';
     wsUrl += req.host + ':8100/show?id=' + arg.id;
-    res.render('room', {wsUrl: wsUrl });
+    var lives = global.dbHandel.getModel('lives');
+    var users = global.dbHandel.getModel('users');
+    lives.findOne({ _id: arg.id }, function (err, live) {
+      if (err || live == null) {
+        res.render('error');
+      }
+      else {
+        users.findOne({ _id: live.userId }, function (err, doc) {
+          if (err || doc == null) res.render('error');
+          res.render('room', { wsUrl: wsUrl,live:live.livePortrait, user:doc.portraitUrl,user: req.session.user });
+        })
+      }
+    })
   }
   else
     res.render('error');

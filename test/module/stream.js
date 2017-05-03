@@ -16,6 +16,8 @@ stream.use(function(request,response){
     var lives = global.dbHandel.getModel('lives');
     var liveTips = global.dbHandel.getModel('liveTips');
     lives.findOne({_id:arg.id,key:arg.key},function(err,doc){
+      console.log(arg.id,arg.key);
+      console.log(doc);
       console.log("has value");
       if(err){
         response.send(404);
