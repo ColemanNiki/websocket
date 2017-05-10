@@ -46,7 +46,7 @@ router.get('/room', function (req, res, next) {
       else {
         users.findOne({ _id: live.userId }, function (err, doc) {
           if (err || doc == null) res.render('error');
-          res.render('room', { wsUrl: wsUrl,live:live.livePortrait, user:doc.portraitUrl,user: req.session.user });
+          res.render('room', { wsUrl: wsUrl,live:live.livePortrait, player:doc,user: req.session.user });
         })
       }
     })

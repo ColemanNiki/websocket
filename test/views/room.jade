@@ -10,7 +10,11 @@ script(src='javascripts/spectrum.js')
     #page-inner.container
         #title.row
             .col-md-4
-                img.img-responsive(url='')
+                img.img-responsive.room-user-img(src='/images/portrait/default.jpg')
+                .room-title
+                    span #{player.name}
+                    br
+                    button.btn.btn-warning.navbar-btn 关注
             .col-md-8
         #video(style="overflow:hidden;position:relative")
             canvas#video-canvas(width='1000px', height='500px')
