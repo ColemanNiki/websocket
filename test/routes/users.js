@@ -138,6 +138,11 @@ router.post('/register', upload, function (req, res) {
     }
   })
 });
+
+router.post('/attention',function(req,res,next){
+    
+})
+
 router.post('/getId', function (req, res) {
   var sendUrl;
   if (global.isSSL)

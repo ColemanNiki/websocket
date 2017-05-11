@@ -3,6 +3,8 @@ var session = require('express-session');
 var url = require('url');
 var http = require('http');
 var https = require('https');
+var tool = require('../tools/tool');
+
 var router = express.Router();
 
 /* GET home page. */
@@ -46,7 +48,8 @@ router.get('/room', function (req, res, next) {
       else {
         users.findOne({ _id: live.userId }, function (err, doc) {
           if (err || doc == null) res.render('error');
-          res.render('room', { wsUrl: wsUrl,live:live.livePortrait, player:doc,user: req.session.user });
+          var attention = tool.isAttention(live.userId, req.session.user.id);
+          res.render('room', { wsUrl: wsUrl, live: live.livePortrait, player: doc, user: req.session.user, attention: attention });
         })
       }
     })

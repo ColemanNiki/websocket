@@ -9,6 +9,25 @@ $(document).ready(function () {
     });
 })
 
+function attention(attention){
+    var data = new object();
+    data.attentionId = attentionId;
+     $.ajax({
+            url: '/users/attention',
+            type: 'post',
+            data: data,
+            success: function (data) {
+                if(data.success = 1 ){
+                    console.log(data);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            },
+            crossDomain: true
+        })
+}
+
 var goEasy = new GoEasy({
     appkey: 'BC-986da6119c6b446c9ee9fda530452e90'
 });

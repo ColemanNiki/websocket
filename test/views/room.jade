@@ -12,9 +12,12 @@ script(src='javascripts/spectrum.js')
             .col-md-4
                 img.img-responsive.room-user-img(src='/images/portrait/default.jpg')
                 .room-title
-                    span #{player.name}
+                    span #{player.name} #{attention} 
                     br
-                    button.btn.btn-warning.navbar-btn 关注
+                    if attention
+                        button.btn.btn-warning.navbar-btn(onclick="attention('#{player._id}')") 关注
+                    else
+                        button.btn.btn-warning.navbar-btn(onclick="attention('#{player._id}')") 已关注
             .col-md-8
         #video(style="overflow:hidden;position:relative")
             canvas#video-canvas(width='1000px', height='500px')

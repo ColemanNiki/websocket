@@ -1,4 +1,5 @@
-// create random string 
+
+
 module.exports = {
     create_random_string : function (index) {
         var len = index || 10;
@@ -9,5 +10,16 @@ module.exports = {
             　　　　pwd += chars.charAt(Math.floor(Math.random() * maxPos));
         　　}
         　　return pwd;
+    },
+    isAttention : function(palyerId,audienceId){
+        var attentions = global.dbHandel.getModel('attentions');
+        attentions.findOne({palyerId:palyerId,audienceId:audienceId,deleted:false},function(err,doc){
+            if(err || !doc){
+                return false;
+            }
+            else{
+                return true;
+            }
+        })
     }
 }

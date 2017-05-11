@@ -3,8 +3,9 @@ module.exports={
     users:{
         name:{type:String,required:true},
         pwd:{type:String,required:true},
-        email:{type:String,reqired:false},
-        portraitUrl:{type:String,reqired:false}
+        email:{type:String,required:false},
+        portraitUrl:{type:String,required:false},
+        attentionNumber:{type:Number,require:true}
     },
     liveTips:{
         name:{type:String,required:true},
@@ -26,5 +27,10 @@ module.exports={
         key:{type:String,required:true},
         state:{type:Number,required:true},
         startTime:{type:Date,require:false}
+    },
+    attentions:{
+        palyerId:{type:Schema.Types.ObjectId,require:true},
+        audienceId:{type:Schema.Types.ObjectId,require:true},
+        deleted:{type:Boolean,require:true}
     }
 };
