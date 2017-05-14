@@ -37,11 +37,8 @@ h4 {
     padding-top:10px;
 }
 .square-btn-adjust {
-    border: 0px solid transparent; 
-   -webkit-border-radius: 0px;
--moz-border-radius: 0px;
-border-radius: 0px;
-
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 p {
     font-size:16px;

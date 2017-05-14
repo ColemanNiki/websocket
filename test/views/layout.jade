@@ -34,9 +34,21 @@ html(xmlns="http://www.w3.org/1999/xhtml")
         float: right;\
         font-size: 16px;")
           if user
-            a.btn.btn-danger.square-btn-adjust(href="logout") Logout
+            .btn-group
+              button.btn.btn-primary.dropdown-toggle(type="button", data-toggle="dropdown")
+                | 
+                span.caret
+              |     
+              ul.dropdown-menu(role="menu")
+                li
+                  a(href="/user/attentionTable") 关注列表
+                |         
+                li.divider
+                |         
+                li
+                  a(href="logout") 注销
           else
-            a.btn.btn-danger.square-btn-adjust(href="login") Login
+            button.btn.btn-primary(href="login") 登陆
       // /. NAV TOP
       nav.navbar-default.navbar-side(role="navigation")
         .sidebar-collapse

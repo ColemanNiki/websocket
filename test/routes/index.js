@@ -48,8 +48,9 @@ router.get('/room', function (req, res, next) {
       else {
         users.findOne({ _id: live.userId }, function (err, doc) {
           if (err || doc == null) res.render('error');
-          var attention = tool.isAttention(live.userId, req.session.user.id);
-          res.render('room', { wsUrl: wsUrl, live: live.livePortrait, player: doc, user: req.session.user, attention: attention });
+          tool.isAttention(live.userId, req.session.user.id, function (isAttention) {
+            res.render('room', { wsUrl: wsUrl, live: live.livePortrait, player: doc, user: req.session.user, attention: isAttention });
+          });
         })
       }
     })

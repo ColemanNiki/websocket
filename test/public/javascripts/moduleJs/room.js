@@ -9,23 +9,24 @@ $(document).ready(function () {
     });
 })
 
-function attention(attention){
-    var data = new object();
-    data.attentionId = attentionId;
-     $.ajax({
-            url: '/users/attention',
-            type: 'post',
-            data: data,
-            success: function (data) {
-                if(data.success = 1 ){
-                    console.log(data);
+function attention(attentionId) {
+    $.ajax({
+        url: '/users/attention',
+        type: 'POST',
+        data: { 'attentionId': attentionId },
+        success: function (data) {
+            if (data.success = 1) {
+                if ($('#btn-attention').html() == "关注") {
+                    $('#btn-attention').html("已关注");
                 }
-            },
-            error: function (res) {
-                console.log(res);
-            },
-            crossDomain: true
-        })
+                else $('#btn-attention').html("关注");
+            }
+        },
+        error: function (data) {
+            alert(msgTip[data.message]);
+
+        }
+    })
 }
 
 var goEasy = new GoEasy({

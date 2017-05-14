@@ -11,14 +11,14 @@ module.exports = {
         　　}
         　　return pwd;
     },
-    isAttention : function(palyerId,audienceId){
+    isAttention : function(palyerId,audienceId,callback){
         var attentions = global.dbHandel.getModel('attentions');
         attentions.findOne({palyerId:palyerId,audienceId:audienceId,deleted:false},function(err,doc){
             if(err || !doc){
-                return false;
+                callback(false);
             }
             else{
-                return true;
+                callback(true);
             }
         })
     }

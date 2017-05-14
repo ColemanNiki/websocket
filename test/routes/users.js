@@ -139,8 +139,45 @@ router.post('/register', upload, function (req, res) {
   })
 });
 
-router.post('/attention',function(req,res,next){
-    
+router.post('/attention', function (req, res, next) {
+  var data = req.body.attentionId;
+  console.log(req.body);
+  var attentions = global.dbHandel.getModel('attentions');
+  console.log("getmodel success:"+data);
+  attentions.findOne({ palyerId: data, audienceId: req.session.user.id }, function (err, doc) {
+    if (err) {
+      res.json({ success: 0, message: 501 });
+    }
+    else {
+      if (doc) {
+        var judge = !doc.deleted;
+        attentions.update({_id:doc._id},{deleted:judge},function(err,doc){
+          if (err) {
+            res.json({ success: 0, message: 501 });
+          }
+          else{
+            res.json({success:1,message:doc});
+          }
+        })
+      }
+      else{
+        var attention = new attentions({
+          palyerId: data,
+          audienceId:req.session.user.id,
+          deleted:false
+        });
+        console.log(attention);
+        attention.save(function(err,doc){
+          if(err){
+            res.json({success:0,message:450});
+          }
+          else{
+            res.json({success:1,message:doc});
+          }
+        })
+      }
+    }
+  })
 })
 
 router.post('/getId', function (req, res) {
