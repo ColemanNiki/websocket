@@ -15,7 +15,7 @@ module.exports={
         liveTitle:{type:String,required:false},
         liveMsg:{type:String,required:false},
         livePortrait:{type:String,required:false},
-        userId:{type:Schema.Types.ObjectId,required:true},
+        userId:{type:Schema.Types.ObjectId,required:true,ref:'users'},
     },
     lives:{
         name:{type:String,required:true},
@@ -23,14 +23,14 @@ module.exports={
         liveTitle:{type:String,required:false},
         liveMsg:{type:String,required:false},
         livePortrait:{type:String,required:false},
-        userId:{type:Schema.Types.ObjectId,required:true},
+        userId:{type:Schema.Types.ObjectId,required:true,ref:'users'},
         key:{type:String,required:true},
         state:{type:Number,required:true},
         startTime:{type:Date,require:false}
     },
     attentions:{
-        palyerId:{type:Schema.Types.ObjectId,require:true},
-        audienceId:{type:Schema.Types.ObjectId,require:true},
+        palyerId:{type:Schema.Types.ObjectId,require:true,ref:'users'},
+        audienceId:{type:Schema.Types.ObjectId,require:true,ref:'users'},
         deleted:{type:Boolean,require:true}
     }
 };

@@ -31,6 +31,33 @@ router.get('/hall', function (req, res, next) {
     }
   })
 });
+//关注列表
+router.get('/attentionTable', function (req, res, next) {
+  //获得关注列表
+  var attentions = global.dbHandel.getModel("attentions");
+  var users = global.dbHandel.getModel("users");
+  var rooms = global.dbHandel.getModel('lives');
+  //自动多表查询失败，大概是schame获取不规范，先用回调手动查询
+  // attentions.find({audienceId:req.session.user.id,deleted:false}).populate('player','name email','users').exec(function(err,docs){
+  //   if(err){
+  //     console.log(err);
+  //     res.json(err);
+  //   }
+  //   else{
+  //     console.log("查询结果",docs);
+  //     res.render('hall',{user:req.session.user,rooms:docs});
+  //   }
+  // });
+  attentions.find({ audienceId: req.session.user.id, deleted: false }, function (err, docs) {
+    if (err) res.render('error');
+    else {
+      tool.getAttentionTable(docs, function (docs) {
+        console.log("get result", docs);
+              res.render('hall', { user: req.session.user, rooms: docs });
+      });
+    }
+  })
+});
 
 router.get('/room', function (req, res, next) {
   var arg = url.parse(req.url, true).query;
@@ -46,9 +73,11 @@ router.get('/room', function (req, res, next) {
         res.render('error');
       }
       else {
+        console.log("find lives:",live);
         users.findOne({ _id: live.userId }, function (err, doc) {
           if (err || doc == null) res.render('error');
-          tool.isAttention(live.userId, req.session.user.id, function (isAttention) {
+          tool.isAttention(live.userId, req.session.user, function (isAttention) {
+            console.log("find lives-user:",doc);
             res.render('room', { wsUrl: wsUrl, live: live.livePortrait, player: doc, user: req.session.user, attention: isAttention });
           });
         })

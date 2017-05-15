@@ -3,6 +3,7 @@ var router = express.Router();
 var session = require('express-session');
 var multer = require('../tools/multerUtil');
 var upload = multer.single('file');
+var events = require('events');
 var tool = require('../tools/tool');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -143,7 +144,7 @@ router.post('/attention', function (req, res, next) {
   var data = req.body.attentionId;
   console.log(req.body);
   var attentions = global.dbHandel.getModel('attentions');
-  console.log("getmodel success:"+data);
+  console.log("getmodel success:" + data);
   attentions.findOne({ palyerId: data, audienceId: req.session.user.id }, function (err, doc) {
     if (err) {
       res.json({ success: 0, message: 501 });
@@ -151,34 +152,35 @@ router.post('/attention', function (req, res, next) {
     else {
       if (doc) {
         var judge = !doc.deleted;
-        attentions.update({_id:doc._id},{deleted:judge},function(err,doc){
+        attentions.update({ _id: doc._id }, { deleted: judge }, function (err, doc) {
           if (err) {
             res.json({ success: 0, message: 501 });
           }
-          else{
-            res.json({success:1,message:doc});
+          else {
+            res.json({ success: 1, message: doc });
           }
         })
       }
-      else{
+      else {
         var attention = new attentions({
           palyerId: data,
-          audienceId:req.session.user.id,
-          deleted:false
+          audienceId: req.session.user.id,
+          deleted: false
         });
         console.log(attention);
-        attention.save(function(err,doc){
-          if(err){
-            res.json({success:0,message:450});
+        attention.save(function (err, doc) {
+          if (err) {
+            res.json({ success: 0, message: 450 });
           }
-          else{
-            res.json({success:1,message:doc});
+          else {
+            res.json({ success: 1, message: doc });
           }
         })
       }
     }
   })
-})
+});
+
 
 router.post('/getId', function (req, res) {
   var sendUrl;
@@ -254,5 +256,5 @@ router.post('/getId', function (req, res) {
       }
     })
   }
-})
+});
 module.exports = router;
