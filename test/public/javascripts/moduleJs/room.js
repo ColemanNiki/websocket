@@ -24,7 +24,6 @@ function attention(attentionId) {
         },
         error: function (data) {
             alert(msgTip[data.message]);
-
         }
     })
 }
@@ -40,6 +39,7 @@ function sendMsg() {
     msg.content = $('#msgInput').val();
     msg.color = $("#color_select").spectrum("get").toHexString();
     msg = JSON.stringify(msg);
+    $('#msgInput').val("");
     goEasy.publish({
         channel: channelName,
         message: msg

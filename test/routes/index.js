@@ -53,7 +53,7 @@ router.get('/attentionTable', function (req, res, next) {
     else {
       tool.getAttentionTable(docs, function (docs) {
         console.log("get result", docs);
-              res.render('hall', { user: req.session.user, rooms: docs });
+        res.render('hall', { user: req.session.user, rooms: docs });
       });
     }
   })
@@ -73,11 +73,11 @@ router.get('/room', function (req, res, next) {
         res.render('error');
       }
       else {
-        console.log("find lives:",live);
+        console.log("find lives:", live);
         users.findOne({ _id: live.userId }, function (err, doc) {
           if (err || doc == null) res.render('error');
           tool.isAttention(live.userId, req.session.user, function (isAttention) {
-            console.log("find lives-user:",doc);
+            console.log("find lives-user:", doc);
             res.render('room', { wsUrl: wsUrl, live: live.livePortrait, player: doc, user: req.session.user, attention: isAttention });
           });
         })
@@ -121,6 +121,26 @@ router.get('/login', function (req, res, next) {
   })
 });
 
+// 搜索功能
+router.post('/find', function (req, res) {
+  var formData = req.body.key;
+  var lives = global.dbHandel.getModel('lives');
+  var reg = new RegExp(formData, 'i');
+  lives.find({
+    $or: [
+      { name: { $regex: reg } },
+      { liveTitle: { $regex: reg } },
+    ],
+    'state': { '$lt': 3 }
+  }, function (err, docs) {
+      if (err) {
+        console.log(err);
+        res.render('error');
+      }
+      console.log(docs);
+      res.render('hall', { user: req.session.user, rooms: docs });
+    })
+})
 router.get('/register', function (req, res, next) {
   res.render('register', { title: 'register' });
 });

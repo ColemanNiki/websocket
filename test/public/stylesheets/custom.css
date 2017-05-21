@@ -387,3 +387,30 @@ line-height: 1.428571429;
     font-size: 20px;
     float:left;
 }
+.search-input-group .input-group-addon{
+background: white !important; 
+}
+.search-input-group .form-control{
+border-right:0; 
+box-shadow:0 0 0; 
+border-color:#ccc;
+}
+.search-input-group{
+width: 40%;
+}
+.search-input-group button{
+border:0;
+background:transparent;
+}
+.search-input-group input:focus + button{
+z-index:3;
+}
+.search-input-group input{
+-webkit-transition: width 0.2s ease-in-out;
+-moz-transition:width 0.2s ease-in-out;
+-o-transition: width 0.2s ease-in-out;
+transition: width 0.2s ease-in-out;
+}
+.search-input-group input:focus{
+width: 150px;
+}

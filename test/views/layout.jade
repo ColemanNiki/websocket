@@ -33,22 +33,44 @@ html(xmlns="http://www.w3.org/1999/xhtml")
         padding: 15px 50px 5px 50px;\
         float: right;\
         font-size: 16px;")
-          if user
-            .btn-group
-              button.btn.btn-primary.dropdown-toggle(type="button", data-toggle="dropdown")
-                | 菜单 &nbsp;
-                span.caret
-              |     
-              ul.dropdown-menu(role="menu")
-                li
-                  a(href="/attentionTable") 关注列表
-                |         
-                li.divider
-                |         
-                li
-                  a(href="logout") 注销
-          else
-            a.btn.btn-primary(href="login") 登陆
+          //- .input-group(style="float:left;padding-right: 30px;")
+          //-   input(type="text", placeholder="请输入字段名")
+          //-   |   
+          //-   |             
+          //-   span
+          //-     button.btn.btn-info.btn-search 查找
+          div(style="float:right")
+            if user
+              .btn-group
+                button.btn.btn-primary.dropdown-toggle(type="button", data-toggle="dropdown")
+                  | 菜单 &nbsp;
+                  span.caret
+                |     
+                ul.dropdown-menu(role="menu")
+                  li
+                    a(href="/attentionTable") 关注列表
+                  |         
+                  li.divider
+                  |         
+                  li
+                    a(href="logout") 注销
+            else
+              a.btn.btn-primary(href="login") 登陆        
+          div(style="float:right;max-width:300px")
+            form.form-horizontal(action="/find", method="POST")
+              .input-group.search-input-group(style="float:right;margin-right:30px")
+                input(type="hidden", name="scope", value="1")
+                input.form-control(name="key", autocomplete="off", type="text", placeholder="搜索房间名/主播名")
+                span.input-group-addon(style="padding:0px")
+                  button(type="submit")
+                    span.glyphicon.glyphicon-search
+          //- div
+          //-   .input-group
+          //-     input.form-control(type="text", placeholder="请输入字段名")
+          //-     |   
+          //-     |             
+          //-     span.input-group-btn
+          //-       button.btn.btn-info.btn-search 查找
       // /. NAV TOP
       nav.navbar-default.navbar-side(role="navigation")
         .sidebar-collapse
@@ -62,49 +84,16 @@ html(xmlns="http://www.w3.org/1999/xhtml")
             | 					
             |                     
             li
-              a.active-menu(href="index.html")
-                i.fa.fa-dashboard.fa-3x
-                |  Dashboard
-            |                      
-            li
-              a(href="ui.html")
-                i.fa.fa-desktop.fa-3x
-                |  UI Elements
-            |                     
-            li
               a(href="hall")
                 i.fa.fa-qrcode.fa-3x
                 |  大厅
             | 						   
-            li
-              a(href="chart.html")
-                i.fa.fa-bar-chart-o.fa-3x
-                |  Morris Charts
-            | 	
-            |                
-            li
-              a(href="table.html")
-                i.fa.fa-table.fa-3x
-                |  Table Examples
-            |                     
-            li
-              a(href="form.html")
-                i.fa.fa-edit.fa-3x
-                |  Forms
-            | 			
             if user	
               li
                 a(href="createRoom")
                   i.fa.fa-edit.fa-3x
                   |  创建直播间
             | 
-            li
-              a(href="registeration.html")
-                i.fa.fa-laptop.fa-3x
-                |  Registeration
-            | 	
-            | 					                   
-            |                     
             li
               a(href="#")
                 i.fa.fa-sitemap.fa-3x
@@ -134,15 +123,7 @@ html(xmlns="http://www.w3.org/1999/xhtml")
                       a(href="#") Third Level Link
             |   
             |                   
-            li
-              a(href="blank.html")
-                i.fa.fa-square-o.fa-3x
-                |  Blank Page
       block page-content  
-      // /. PAGE WRAPPER
-    // /. WRAPPER
-    // SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME
-    // JQUERY SCRIPTS
     script(src="javascripts/jquery.min.js")
     // BOOTSTRAP SCRIPTS
     script(src="javascripts/bootstrap.min.js")

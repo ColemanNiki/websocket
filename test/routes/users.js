@@ -33,7 +33,6 @@ router.post('/create_room', upload, function (req, res, next) {
   lives.findOne({ userId: req.session.user.id }, function (err, doc) {
     if (doc) {
       var key = tool.create_random_string(8);
-      doc.name = data.room_name;
       doc.liveTitle = data.room_title;
       doc.liveMsg = data.room_message;
       doc.createTime = Date.now();
