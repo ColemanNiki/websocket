@@ -1,42 +1,39 @@
 extends layout
 
 block page-content
-link(href="stylesheets/spectrum.css",rel="stylesheet")
-script(src="http://cdn.goeasy.io/goeasy.js")
-script(src='javascripts/moduleJs/room.js')
-script(src='javascripts/danmu.js')
-script(src='javascripts/spectrum.js')
-#page-wrapper
-    #page-inner.container
-        #title.row
-            .col-md-4
-                img.img-responsive.room-user-img(src='/images/portrait/default.jpg')
-                .room-title
-                    span #{player.name} #{attention} #{player._id}
-                    br
-                    if attention
-                        button#btn-attention.btn.btn-warning.navbar-btn(onclick="attention('#{player._id}')") 已关注
-                    else
-                        button#btn-attention.btn.btn-warning.navbar-btn(onclick="attention('#{player._id}')") 关注
-            .col-md-8
-        #video(style="overflow:hidden;position:relative")
-            canvas#video-canvas(width='1000px', height='500px')
-        button#startBtn &#x70B9;&#x51FB;
-        button#pauseBtn &#x6682;&#x505C;
-        input#color_select(type='text',class='basic',value='white')
-        input#msgInput(type='text')
-        button#sendMsg(type='button',onclick="sendMsg()") 发送
-
-script(type='text/javascript', src='/javascripts/jsmpeg.min.js')
-script(type='text/javascript').
-    console.log("#{user}");
-    console.log("#{live}");
-    var canvas = document.getElementById('video-canvas');
-    var url = "#{wsUrl}";
-    var player = new JSMpeg.Player(url, { canvas: canvas ,autoplay:true});
-    $('#pauseBtn').click(function () {
-        player.stop();
-    });
-    $('#startBtn').click(function(){
-        player.play();
-    })
+    #page-wrapper
+        #page-inner.container
+            #title.row
+                .col-md-4
+                    img.img-responsive.room-user-img(src='/images/portrait/default.jpg')
+                    .room-title
+                        span #{player.name} #{attention} #{player._id}
+                        br
+                        if attention
+                            button#btn-attention.btn.btn-warning.navbar-btn(onclick="attention('#{player._id}')") 已关注
+                        else
+                            button#btn-attention.btn.btn-warning.navbar-btn(onclick="attention('#{player._id}')") 关注
+                .col-md-8
+            #video(style="overflow:hidden;position:relative")
+                canvas#video-canvas(width='1000px', height='500px')
+            button#startBtn &#x70B9;&#x51FB;
+            button#pauseBtn &#x6682;&#x505C;
+            input#color_select(type='text',class='basic',value='white')
+            input#msgInput(type='text')
+            button#sendMsg(type='button',onclick="sendMsg()") 发送
+    link(href="stylesheets/spectrum.css",rel="stylesheet")
+    script(src="http://cdn.goeasy.io/goeasy.js")
+    script(src='javascripts/danmu.js')
+    script(src='javascripts/jsmpeg.min.js')
+    script(src='javascripts/spectrum.js')
+    script(src='javascripts/moduleJs/room.js')
+    script(type='text/javascript').
+        var canvas = document.getElementById('video-canvas');
+        var url = "#{wsUrl}";
+        var player = new JSMpeg.Player(url, { canvas: canvas});
+        $('#pauseBtn').click(function () {
+            player.stop();
+        });
+        $('#startBtn').click(function(){
+            player.play();
+        })

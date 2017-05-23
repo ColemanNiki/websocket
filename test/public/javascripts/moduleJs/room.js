@@ -7,6 +7,7 @@ $(document).ready(function () {
         showPalette: true,
         palette: [["red", "rgba(0, 255, 0, .5)", "rgb(0, 0, 255)"]]
     });
+    document.getElemntById("canvas").style.width="190px";
 })
 
 function attention(attentionId) {
