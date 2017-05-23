@@ -12,7 +12,7 @@ var https = require('https');
 var url = require('url');
 var path = require('path');
 var options = {}
-global.isSSL = true;
+global.isSSL = false;
 global.connectList = [];
 global.APP_PATH = path.join(__dirname, '../');
 
