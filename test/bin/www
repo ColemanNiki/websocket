@@ -16,7 +16,6 @@ global.isSSL = false;
 global.connectList = [];
 global.APP_PATH = path.join(__dirname, '../');
 
-
 if (global.isSSL) {
   options = {
     key: fs.readFileSync('center.key'),
