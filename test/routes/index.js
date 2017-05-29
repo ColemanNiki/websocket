@@ -65,7 +65,7 @@ router.get('/room', function (req, res, next) {
     var wsUrl;
     if (global.isSSL) wsUrl = 'wss://';
     else wsUrl = 'ws://';
-    wsUrl += req.host + ':8100/show?id=' + arg.id;
+    wsUrl += "colemanniki.cn" + ':8100/show?id=' + arg.id;
     var lives = global.dbHandel.getModel('lives');
     var users = global.dbHandel.getModel('users');
     lives.findOne({ _id: arg.id }, function (err, live) {
