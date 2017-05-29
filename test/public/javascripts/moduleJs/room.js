@@ -7,7 +7,6 @@ $(document).ready(function () {
         showPalette: true,
         palette: [["red", "rgba(0, 255, 0, .5)", "rgb(0, 0, 255)"]]
     });
-    document.getElementById("canvas").style.width="190px";
     document.getElementById("video-canvas").style.width="1000px";
 })
 
