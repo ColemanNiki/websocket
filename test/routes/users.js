@@ -256,4 +256,14 @@ router.post('/getId', function (req, res) {
     })
   }
 });
+
+router.get('/history',function(req,res,next){
+  var livetips = global.dbHandel.getModel('liveTips');
+  livetips.find({userId:req.session.user.id},function(err,docs){
+    if(err) req.render('error');
+    else{
+      
+    }
+  })
+});
 module.exports = router;
