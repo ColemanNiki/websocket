@@ -7,23 +7,23 @@ html(xmlns="http://www.w3.org/1999/xhtml")
     |     
     title LIVE CAREMA
     // BOOTSTRAP STYLES
-    link(href="stylesheets/bootstrap.min.css", rel="stylesheet")
+    link(href="/stylesheets/bootstrap.min.css", rel="stylesheet")
     // FONTAWESOME STYLES
-    link(href="stylesheets/font-awesome.css", rel="stylesheet")
+    link(href="/stylesheets/font-awesome.css", rel="stylesheet")
     // MORRIS CHART STYLES
     link(href="stylesheets/morris.min.css",rel="stylesheet")
     link(href="//cdn.jsdelivr.net/jquery.metismenu/2.7.0/metisMenu.min.css",rel="stylesheet" )
-    link(href="stylesheets/custom.css",rel="stylesheet")    
-    script(src="javascripts/jquery.min.js")
+    link(href="/stylesheets/custom.css",rel="stylesheet")    
+    script(src="/javascripts/jquery.min.js")
     // BOOTSTRAP SCRIPTS
     script(src="javascripts/bootstrap.min.js")
     // MORRIS CHART SCRIPTS
-    script(src="javascripts/raphael.min.js")
-    script(src="javascripts/messageTip.js")
-    script(src="javascripts/morris.js")
+    script(src="/javascripts/raphael.min.js")
+    script(src="/javascripts/messageTip.js")
+    script(src="/javascripts/morris.js")
     script(src="//cdn.jsdelivr.net/jquery.metismenu/2.7.0/metisMenu.min.js")
-    script(src="javascripts/custom.js")    
-    script(src="javascripts/tools.js")    
+    script(src="/javascripts/custom.js")    
+    script(src="/javascripts/tools.js")    
   body
     #wrapper
       nav.navbar.navbar-default.navbar-cls-top(role="navigation", style="margin-bottom: 0")
@@ -87,9 +87,9 @@ html(xmlns="http://www.w3.org/1999/xhtml")
           ul#main-menu.nav
             li.text-center
               if user && user.portraitUrl
-                img.user-image.img-responsive(src='upload/'+user.portraitUrl)
+                img.user-image.img-responsive(src='/upload/'+user.portraitUrl)
               else
-                img.user-image.img-responsive(src="images/portrait/default.jpg")
+                img.user-image.img-responsive(src="/images/portrait/default.jpg")
             | 				
             | 					
             |                     

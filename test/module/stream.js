@@ -38,7 +38,7 @@ stream.use(function(request,response){
               createTime:doc.createTime,
               startTime:doc.startTime,
               endTime:Date.now(),
-              liveTip:doc.liveTip,
+              liveTitle:doc.liveTitle,
               liveMsg:doc.liveMsg,
               livePortrait:doc.livePortrait,
               userId:doc.userId

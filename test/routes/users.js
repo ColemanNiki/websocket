@@ -5,6 +5,7 @@ var multer = require('../tools/multerUtil');
 var upload = multer.single('file');
 var events = require('events');
 var tool = require('../tools/tool');
+var moment = require('moment');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
@@ -260,9 +261,14 @@ router.post('/getId', function (req, res) {
 router.get('/history',function(req,res,next){
   var livetips = global.dbHandel.getModel('liveTips');
   livetips.find({userId:req.session.user.id},function(err,docs){
-    if(err) req.render('error');
+    if(err) res.render('error');
     else{
-      
+      docs.forEach(function(item,index) {
+        docs[index].createTime = moment(docs[index].createTime,'YY/MM/DD');
+        console.log(moment(docs[index].createTime).format('YYYY/MM/DD'));
+      });
+      console.log(typeof(docs));
+      res.render('history',{message:docs});
     }
   })
 });
