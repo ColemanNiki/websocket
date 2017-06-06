@@ -251,16 +251,20 @@ router.post('/getId', function (req, res) {
 });
 
 router.get('/history', function (req, res, next) {
+  console.log("come to hear");
   var livetips = global.dbHandel.getModel('liveTips');
+  console.log("livetips is ",livetips);
   livetips.find({ userId: req.session.user.id }, function (err, docs) {
     if (err) res.render('error');
     else {
+      console.log("doc:");
+      console.log(docs);
       docs.forEach(function (item, index) {
         docs[index].createTime = moment(docs[index].createTime, 'YY/MM/DD');
         console.log(moment(docs[index].createTime).format('YYYY/MM/DD'));
       });
       console.log(typeof (docs));
-      res.render('history', { message: docs });
+      res.render('history', { message: docs,user: req.session.user});
     }
   })
 });
