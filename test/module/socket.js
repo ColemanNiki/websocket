@@ -20,12 +20,6 @@ module.exports = function (server) {
         });
     });
     router.broadcast = function (data, objectId) {
-        // socketServer.clients.forEach(function each(client) {
-        //   if (client.readyState == WebSocket.OPEN) {
-        //     console.log(client.liveRoom);
-        //     client.send(data);
-        //   }
-        // });
         if (global.connectList[objectId] == null) {
             global.connectList[objectId] = [];
         }

@@ -24,11 +24,7 @@ router.get('/get_my_room', function (req, res, next) {
   })
 });
 router.post('/create_room', upload, function (req, res, next) {
-  var sendUrl;
-  if (global.isSSL)
-    sendUrl = "https://www.colemanniki.cn:8081/send?";
-  else
-    sendUrl = "http://localhost:8081/send?";
+  var sendUrl = "https://steam.colemanniki.cn/send?";
   var data = JSON.parse(req.body.data);
   var lives = global.dbHandel.getModel('lives');
   lives.findOne({ userId: req.session.user.id }, function (err, doc) {
