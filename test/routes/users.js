@@ -75,11 +75,7 @@ router.post('/create_room', upload, function (req, res, next) {
 })
 
 router.get('/get_room_key', function (req, res, next) {
-  var sendUrl;
-  if (global.isSSL)
-    sendUrl = "https://www.colemanniki.cn:8081/send?";
-  else
-    sendUrl = "http://localhost:8081/send?";
+  var sendUrl = "https://steam.colemanniki.cn/send?";
   var lives = global.dbHandel.getModel('lives');
   lives.findOne({ userId: req.session.user.id }, function (err, doc) {
     if (err) {
@@ -254,17 +250,17 @@ router.post('/getId', function (req, res) {
   }
 });
 
-router.get('/history',function(req,res,next){
+router.get('/history', function (req, res, next) {
   var livetips = global.dbHandel.getModel('liveTips');
-  livetips.find({userId:req.session.user.id},function(err,docs){
-    if(err) res.render('error');
-    else{
-      docs.forEach(function(item,index) {
-        docs[index].createTime = moment(docs[index].createTime,'YY/MM/DD');
+  livetips.find({ userId: req.session.user.id }, function (err, docs) {
+    if (err) res.render('error');
+    else {
+      docs.forEach(function (item, index) {
+        docs[index].createTime = moment(docs[index].createTime, 'YY/MM/DD');
         console.log(moment(docs[index].createTime).format('YYYY/MM/DD'));
       });
-      console.log(typeof(docs));
-      res.render('history',{message:docs});
+      console.log(typeof (docs));
+      res.render('history', { message: docs });
     }
   })
 });
