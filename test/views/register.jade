@@ -3,17 +3,17 @@ head
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title Free Bootstrap Admin Template : Binary Admin
     // BOOTSTRAP STYLES
-    link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+    link(href='/stylesheets/bootstrap.min.css', rel='stylesheet')
     // FONTAWESOME STYLES
-    link(href='stylesheets/font-awesome.css', rel='stylesheet')
+    link(href='/stylesheets/font-awesome.css', rel='stylesheet')
     // GOOGLE FONTS
     link(href='http://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
     // JQUERY SCRIPTS
-    script(src='javascripts/jquery.min.js')
+    script(src='/javascripts/jquery.min.js')
     // BOOTSTRAP SCRIPTS
-    script(src='javascripts/bootstrap.min.js')
-    script(src='javascripts/tools.js')
-    script(src='javascripts/moduleJs/register.js')
+    script(src='/javascripts/bootstrap.min.js')
+    script(src='/javascripts/tools.js')
+    script(src='/javascripts/moduleJs/register.js')
   body
     .container
       .row.text-center
@@ -32,7 +32,7 @@ head
               .form-group.input-group.col-md-12
                   .row 
                       .col-md-6.col-md-offset-3
-                          img#portrait(class='img-circle img-thumbnail carousel-inner',src='images/portrait/default.jpg',onclick='setImg()')
+                          img#portrait(class='img-circle img-thumbnail carousel-inner',src='/images/portrait/default.jpg',onclick='setImg()')
                           div(style="display:none")
                             form#imgForm(action='/upload/logo', method='post', enctype='multipart/form-data')
                               input#fileChance(type='file', name='file',onchange='previewImage("fileChance","portrait")')
