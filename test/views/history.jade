@@ -1,0 +1,40 @@
+extends layout
+script(src="./javascripts/jquery.min.js")
+
+block page-content
+    #page-wrapper
+        #page-inner
+            .table-responsive
+                table.table.table-hover
+                    caption 直播记录
+                        |   
+                        thead
+                            tr
+                                th 标题
+                                |       
+                                th 开始时间
+                                |       
+                                th 结束时间
+                                |       
+                                th 结束时间
+                        |   
+                        tbody
+                            each row in message
+                                tr
+                                    td #{row.liveTitle}
+                                    |       
+                                    td #{row.startTime}
+                                    |       
+                                    td #{row.endTime}
+                                    |       
+                                    td #{row.endTime}
+                                |    
+                        //- tbody
+                        //-     each row in message
+                        //-         tr
+                        //-             td #{row.liveTitle}
+                        //-             |
+                        //-             td #{row.startTime}
+                        //-             |
+                        //-             td #{row.endTime}
+                        //-         |
