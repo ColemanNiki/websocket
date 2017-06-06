@@ -11,9 +11,9 @@ block page-content
                         thead
                             tr
                                 th 标题
-                                |
+                                |       
                                 th 信息
-                                |
+                                |       
                                 th 开始时间
                                 |       
                                 th 结束时间
@@ -24,21 +24,12 @@ block page-content
                             each row in message
                                 tr
                                     td #{row.liveTitle}
-                                    |
+                                    |       
                                     td #{row.liveMsg}
-                                    |
+                                    |       
                                     td #{row.startTime}
-                                    |
+                                    |       
                                     td #{row.endTime}
-                                    |
+                                    |       
                                     td #{row.stillTime}
                                 |    
-                        //- tbody
-                        //-     each row in message
-                        //-         tr
-                        //-             td #{row.liveTitle}
-                        //-             |
-                        //-             td #{row.startTime}
-                        //-             |
-                        //-             td #{row.endTime}
-                        //-         |
