@@ -24,7 +24,7 @@ router.get('/get_my_room', function (req, res, next) {
   })
 });
 router.post('/create_room', upload, function (req, res, next) {
-  var sendUrl = "http://steam.colemanniki.cn/send?";
+  var sendUrl = "http://www.colemanniki.cn:8081/send?";
   var data = JSON.parse(req.body.data);
   var lives = global.dbHandel.getModel('lives');
   lives.findOne({ userId: req.session.user.id }, function (err, doc) {
@@ -75,7 +75,7 @@ router.post('/create_room', upload, function (req, res, next) {
 })
 
 router.get('/get_room_key', function (req, res, next) {
-  var sendUrl = "http://steam.colemanniki.cn/send?";
+  var sendUrl = "http://www.colemanniki.cn:8081/send?";
   var lives = global.dbHandel.getModel('lives');
   lives.findOne({ userId: req.session.user.id }, function (err, doc) {
     if (err) {
